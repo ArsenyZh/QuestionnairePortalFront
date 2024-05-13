@@ -1,5 +1,6 @@
-import React,{ useState } from "react"
+import React,{ useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
+import {user, editUserInfo} from '../services/UserService'
 
 export default function EditProfile() {
 
@@ -10,27 +11,29 @@ export default function EditProfile() {
 
     const navigator = useNavigate();
 
-    function handleFirtsName(e) {
-        setFirstName(e.target.value);
-    }
+    const [userInfo, setUserInfo] = useState('')
 
-    function handleLastName(e) {
-        setLastName(e.target.value);
-    }
-
-    function handleEmail(e) {
-        setEmail(e.target.value);
-    }
-
-    function handlePhoneNumber(e) {
-        setPhoneNumber(e.target.value);
-    }
+    useEffect(() => {
+        user().then((response) => {
+            setUserInfo(response.data);
+        }).catch(error => {
+            console.error(error);
+        })
+    }, [])
 
     function saveProfileInfo(e) {
         e.preventDefault();
 
-        const profile = {firstName, lastName, email, phoneNumber}
+        const profile = {firstName : firstName || userInfo.firstName, 
+                        lastName : lastName || userInfo.lastName, 
+                        email : email || userInfo.email, 
+                        phoneNumber : phoneNumber || userInfo.phoneNumber}
         console.log(profile)
+
+        editUserInfo(profile).then((response) => {
+            console.log(response.data);
+            navigator('/fields')
+        }) 
     }
 
     return (
@@ -48,7 +51,8 @@ export default function EditProfile() {
                                         name='firstName'
                                         value={firstName}
                                         className="form-control"
-                                        onChange={handleFirtsName}>
+                                        placeholder={userInfo.firstName}
+                                        onChange={(e) => {setFirstName(e.target.value);}}>
                                 </input>
                             </div>
 
@@ -58,7 +62,8 @@ export default function EditProfile() {
                                         name='lastName'
                                         value={lastName}
                                         className="form-control"
-                                        onChange={handleLastName}>
+                                        placeholder={userInfo.lastName}
+                                        onChange={(e) => {setLastName(e.target.value);}}>
                                 </input>
                             </div>
 
@@ -68,7 +73,8 @@ export default function EditProfile() {
                                         name='email'
                                         value={email}
                                         className="form-control"
-                                        onChange={handleEmail}>
+                                        placeholder={userInfo.email}
+                                        onChange={(e) => {setEmail(e.target.value);}}>
                                 </input>
                             </div>
 
@@ -78,7 +84,8 @@ export default function EditProfile() {
                                         name='phoneNumber'
                                         value={phoneNumber}
                                         className="form-control"
-                                        onChange={handlePhoneNumber}>
+                                        placeholder={userInfo.phoneNumber}
+                                        onChange={(e) => {setPhoneNumber(e.target.value);}}>
                                 </input>
                             </div>
                         </form>

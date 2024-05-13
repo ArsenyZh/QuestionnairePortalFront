@@ -13,21 +13,6 @@ export default function AddField() {
 
     const navigator = useNavigate();
 
-    function handleLabel(e) {
-        setLabel(e.target.value);
-    }
-
-    function handleType(e) {
-        setType(e.target.value);
-    }
-
-    function handleRequired(e) {
-        setRequired(e.target.checked);
-    }
-
-    function handleActive(e) {
-        setActive(e.target.checked);
-    }
 
     function saveField(e) {
         e.preventDefault();
@@ -51,14 +36,14 @@ export default function AddField() {
 
     function validateForm() {
         let isValid = true;
-      
+
         if (label.trim() === '') {
             setLabelError('Label is required');
             isValid = false;
         } else {
             setLabelError('');
         }
-      
+
         return isValid;
       }
 
@@ -77,7 +62,7 @@ export default function AddField() {
                                         name='label'
                                         value={label}
                                         className="form-control"
-                                        onChange={handleLabel}>
+                                        onChange={(e) => {setLabel(e.target.value);}}>
                                 </input>
                                 {labelError && <div className="error">{labelError}</div>}
                             </div>
@@ -87,7 +72,7 @@ export default function AddField() {
                                 <select name='type'
                                         value={type}
                                         className="form-control"
-                                        onChange={handleType}>
+                                        onChange={(e) => {setType(e.target.value);}}>
                                     <option value="Combobox">Combobox</option>
                                     <option value="Radiobutton">Radiobutton</option>
                                     <option value="Textline">Textline</option>
@@ -101,7 +86,7 @@ export default function AddField() {
                                             type='checkbox'
                                             name='required'
                                             checked={required}
-                                            onChange={handleRequired}>
+                                            onChange={(e) => {setRequired(e.target.checked);}}>
                                     </input>
                                 </div>
 
@@ -111,7 +96,7 @@ export default function AddField() {
                                             type='checkbox'
                                             name='active'
                                             checked={active}
-                                            onChange={handleActive}>
+                                            onChange={(e) => {setActive(e.target.checked);}}>
                                     </input>
                                 </div>
                             </div>
