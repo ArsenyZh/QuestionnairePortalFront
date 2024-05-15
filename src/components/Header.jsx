@@ -37,7 +37,7 @@ export default function Header() {
                                 
                                 <li className="nav-item dropdown">
                                     <button className="nav-link dropdown-toggle" onClick={Profile} type="button" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {userName.firstName + userName.lastName}
+                                        {userName.firstName + " " + userName.lastName}
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <a className="dropdown-item" href="/edit-profile">Edit Profile</a>
