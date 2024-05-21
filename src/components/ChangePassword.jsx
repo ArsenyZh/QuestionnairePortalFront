@@ -40,7 +40,7 @@ export default function ChangePassword() {
                         <form>
                             <div className="form-group mb-2">
                                 <label className="form-label">Current Password</label>
-                                <input  type='text'
+                                <input  type='password'
                                         name='password'
                                         value={password}
                                         className="form-control"
@@ -50,7 +50,7 @@ export default function ChangePassword() {
 
                             <div className="form-group mb-2">
                                 <label className="form-label">New Password</label>
-                                <input  type='text'
+                                <input  type='password'
                                         name='newPassword'
                                         value={newPassword}
                                         className="form-control"
@@ -60,7 +60,7 @@ export default function ChangePassword() {
 
                             <div className="form-group mb-2">
                                 <label className="form-label">Confirm New Password</label>
-                                <input  type='text'
+                                <input  type='password'
                                         name='confirmNewPassword'
                                         value={confNewPassword}
                                         className="form-control"
