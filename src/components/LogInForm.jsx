@@ -10,7 +10,6 @@ export default function LoginForm(props) {
 
   function logIn(e) {
     e.preventDefault()
-    props.setIsLoggedIn(true);
 
     const user = {email, password}
 
@@ -41,7 +40,7 @@ export default function LoginForm(props) {
 
                         <div className="form-group mb-2">
                             <label className="form-label">Password</label>
-                            <input  type='text'
+                            <input  type='password'
                                     name='password'
                                     value={password}
                                     className="form-control"
