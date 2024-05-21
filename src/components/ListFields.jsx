@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react"
 import { listFields } from "../services/FieldService"
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Select, MenuItem, FormControlLabel, Checkbox } from "@mui/material";
 import { createField , updateField, deleteField } from "../services/FieldService"
+import { useNavigate } from "react-router-dom"
 
 export default function ListFields() {
     
     const [fields, setFields] = useState([])
     const [openState, setOpenState] = useState(false)
+    const [openState1, setOpenState1] = useState(false)
 
     const [selectedFieldId, setSelectedFieldId] = useState("");
     const [label, setLabel] = useState('')
@@ -15,6 +17,8 @@ export default function ListFields() {
     const [active, setActive] = useState('')
 
     const [labelError, setLabelError] = useState('');
+
+    const navigator = useNavigate();
 
     function saveField(e) {
         e.preventDefault();
@@ -32,7 +36,8 @@ export default function ListFields() {
             setType('Combobox')
             setRequired('')
             setActive('')
-            setOpenState(false);
+            setOpenState1(false);
+            window.location.reload();
         }) 
     }
 
@@ -54,6 +59,7 @@ export default function ListFields() {
             setRequired('')
             setActive('')
             setOpenState(false);
+            window.location.reload();
         }) 
     }
 
@@ -62,6 +68,7 @@ export default function ListFields() {
         console.log(fieldId)
         deleteField(fieldId).then((response) => {
             console.log(response.data);
+            window.location.reload();
         })
     }
 
@@ -86,6 +93,14 @@ export default function ListFields() {
 
     const functionPopClose = () => {
         setOpenState(false);
+    };
+
+    const functionPopOpen1 = () => {
+        setOpenState1(true);
+    }
+
+    const functionPopClose1 = () => {
+        setOpenState1(false);
         
     };
 
@@ -101,8 +116,8 @@ export default function ListFields() {
         <div className="card px-5 w-75 mx-auto my-5">
             <div className="container d-flex justify-content-between">
                 <h2 className="row row-cols-1 row-cols-lg-3 align-items-stretch g-2 py-3">Fields</h2>
-                <button className="btn btn-primary align-self-center" onClick={functionPopOpen}>ADD FIELD</button>
-                <Dialog open={openState} onClose={functionPopClose} fullWidth maxWidth="sm" className="custom-dialog">
+                <button className="btn btn-primary align-self-center" onClick={functionPopOpen1}>ADD FIELD</button>
+                <Dialog open={openState1} onClose={functionPopClose1} fullWidth maxWidth="sm" className="custom-dialog">
                     <DialogTitle>Add Field</DialogTitle>
                     <DialogContent>
                         <form>
@@ -154,7 +169,7 @@ export default function ListFields() {
                         </form>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={functionPopClose}>Cancel</Button>
+                        <Button onClick={functionPopClose1}>Cancel</Button>
                         <Button onClick={saveField} variant="contained" color="primary">
                             Save
                         </Button>
