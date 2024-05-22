@@ -15,6 +15,7 @@ export default function ListFields() {
     const [type, setType] = useState('Combobox')
     const [required, setRequired] = useState('')
     const [active, setActive] = useState('')
+    const [options, setOptions] = useState([]);
 
     const [labelError, setLabelError] = useState('');
 
@@ -27,7 +28,7 @@ export default function ListFields() {
             return;
         }
 
-        const field = {label, type, required, active}
+        const field = {label, type, required, active, options}
         console.log(field)
 
         createField(field).then((response) => {
@@ -36,6 +37,7 @@ export default function ListFields() {
             setType('Combobox')
             setRequired('')
             setActive('')
+            setOptions([])
             setOpenState1(false);
             window.location.reload();
         }) 
@@ -48,7 +50,7 @@ export default function ListFields() {
             return;
         }
 
-        const field = {label, type, required, active}
+        const field = {label, type, required, active, options}
         console.log(field)
 
         updateField(field, selectedFieldId).then((response) => {
@@ -58,8 +60,9 @@ export default function ListFields() {
             setType('Combobox')
             setRequired('')
             setActive('')
+            setOptions([])
             setOpenState(false);
-            window.location.reload();
+            // window.location.reload();
         }) 
     }
 
@@ -131,6 +134,21 @@ export default function ListFields() {
                                     error={!!labelError}
                                     helperText={labelError}
                                 />
+                            </div>
+                            <div className="form-group mb-2">
+                                <TextField
+                                    label="Options"
+                                    value={options.join(", ")}
+                                    onChange={(e) => {
+                                    const newOptions = e.target.value.split(",").map((option) => option.trim());
+                                    setOptions(newOptions);
+                                    }}
+                                    variant="outlined"
+                                    className="form-control"
+                                />
+                                <small className="form-text text-muted">
+                                    Enter options separated by commas (e.g., "Option 1, Option 2, Option 3")
+                                </small>
                             </div>
                             <div className="form-group mb-2">
                                 <Select
@@ -216,6 +234,21 @@ export default function ListFields() {
                                                         error={!!labelError}
                                                         helperText={labelError}
                                                     />
+                                                </div>
+                                                <div className="form-group mb-2">
+                                                    <TextField
+                                                        label="Options"
+                                                        value={options.join(", ")}
+                                                        onChange={(e) => {
+                                                        const newOptions = e.target.value.split(",").map((option) => option.trim());
+                                                        setOptions(newOptions);
+                                                        }}
+                                                        variant="outlined"
+                                                        className="form-control"
+                                                    />
+                                                    <small className="form-text text-muted">
+                                                        Enter options separated by commas (e.g., "Option 1, Option 2, Option 3")
+                                                    </small>
                                                 </div>
                                                 <div className="form-group mb-2">
                                                     <Select
