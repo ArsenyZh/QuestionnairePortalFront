@@ -40,7 +40,7 @@ export default function QuestionnaireForm() {
     createResponse(responseDto)
       .then((response) => {
         console.log("Response created:", response.data);
-        navigate('/responses');
+        navigate('/domainname.com/questionnaires/successes');
       })
       .catch((error) => {
         console.error("Error creating response:", error);
