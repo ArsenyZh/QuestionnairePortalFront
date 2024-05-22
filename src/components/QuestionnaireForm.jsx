@@ -33,7 +33,7 @@ export default function QuestionnaireForm() {
       return {
         answer: value,
         fieldId: field.id,
-        responseId: 0 // Set the responseId as 0 for now
+        responseId: 0 
       };
     });
     const responseDto = { answerList };
@@ -67,18 +67,37 @@ export default function QuestionnaireForm() {
                       className="form-control"
                     >
                       <option value="">Select an option</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      {field.options.map((option, index) => (
+                        <option key={index} value={option.value}>{option.option}</option>
+                      ))}
                     </select>
-                  ) : (
-                    <input
-                      type={field.type === 'Textline' ? 'text' : 'password'}
-                      name={field.label}
-                      value={formData[field.label] || ''}
-                      onChange={handleInputChange}
-                      className="form-control"
-                    />
-                  )}
+                  ) : field.type === 'Radiobutton' ? (
+                    <div className="form-group mb-2">
+                      {field.options.map((option, index) => (
+                        <div key={index} className="form-check">
+                          <input
+                            type="radio"
+                            name={field.label}
+                            value={option.option}
+                            onChange={handleInputChange}
+                            className="form-check-input"
+                          />
+                          <label className="form-check-label">{option.option}</label>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (field.type === 'Textline' && (
+                    <div className="form-group mb-2">
+                      <input
+                        type="text"
+                        name={field.label}
+                        value={formData[field.label] || ''}
+                        onChange={handleInputChange}
+                        className="form-control"
+                        placeholder={field.label}
+                      />
+                    </div>
+                  ))}
                 </div>
               ))}
               <div className="form-group mb-2">
